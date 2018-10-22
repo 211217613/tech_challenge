@@ -1,0 +1,18 @@
+---
+- hosts: clients
+  become: true
+
+  tasks:
+  - name: config client.json
+    copy:
+      src: client.json
+      dest: /etc/sensu/conf.d/client.json
+      owner: sensu
+      group: sensu
+
+  - name: config transport.json
+    copy:
+      src: transport.json
+      dest: /etc/sensu/conf.d/transport.json
+      owner: sensu
+      group: sensu
