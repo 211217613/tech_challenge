@@ -1,0 +1,17 @@
+[sensumaster]
+35.174.7.93
+
+[slave0]
+54.92.200.231
+
+[slave1]
+18.206.242.191
+
+[all:children]
+sensumaster
+slave0
+slave1
+
+[all:vars]
+ansible_ssh_private_key_file=/home/rvazquez/dev/jcrew/sensu.pem
+ansible_ssh_user=ubuntu
