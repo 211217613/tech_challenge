@@ -1,0 +1,73 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+  - name: install sensu apt-key
+    apt_key:
+      url: https://sensu.global.ssl.fastly.net/apt/pubkey.gpg
+      state: present
+
+  - name: add sensu rep
+    apt_repository:
+      repo: "deb     https://sensu.global.ssl.fastly.net/apt xenial main"
+      state: present
+      update_cache: yes
+
+  - name: install sensu
+    apt:
+      name: sensu
+
+  # # - name: configure sensu client
+  # #   copy:
+  # #     src: client.json
+  # #     dest: /etc/sensu/conf.d/client.json
+  # #     owner: sensu
+  # #     group: sensu
+
+  # # - name: configure rabbitmq config to /etc/sensu/conf.d/
+  # #   copy:
+  # #     src: transport.json
+  # #     dest: /etc/sensu/conf.d/transport.json
+  # #     owner: sensu
+  # #     group: sensu
+
+
+  # - name: configure rabbitmq config to /etc/sensu/conf.d/
+  #   copy:
+  #     src: rabbitmq.json
+  #     dest: /etc/sensu/conf.d/rabbitmq.json
+  #     owner: sensu
+  #     group: sensu
+
+  # - name: configure sensu client
+  #   copy:
+  #     src: client.json
+  #     dest: /etc/sensu/conf.d/client.json
+  #     owner: sensu
+  #     group: sensu
+
+  # - name: configure uchiwa dashboard
+  #   copy:
+  #     src: uchiwa.json
+  #     dest: /etc/sensu/uchiwa.json
+  #     owner: sensu
+  #     group: sensu
+
+  # - name: start sensu
+  #   service:
+  #    enabled: yes
+  #    name: {{ items }}
+  #    state: started
+  #    become: true
+  #    with_items:
+  #      - sensu-server
+  #      - sensu-api
+  #      - sensu-client
+
+  # - name: start uchiwa
+  #   service:
+  #    enabled: yes
+  #    name: uchiwa
+  #    state: started
+  #    become: true
