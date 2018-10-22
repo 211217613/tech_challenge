@@ -3,7 +3,6 @@
   become: true
 
   tasks:
-
   - name: config client.json
     copy:
       src: client.json
@@ -25,20 +24,26 @@
       owner: sensu
       group: sensu
 
-  - name: start sensu
+  - name: start sensu-server
     service:
      enabled: yes
-     name: {{ items }}
+     name: sensu-server
      state: started
-     become: true
-     with_items:
-       - sensu-server
-       - sensu-api
-       - sensu-client
+
+  - name: start sensu-api
+    service:
+     enabled: yes
+     name: sensu-api
+     state: started
+
+  - name: start sensu-client
+    service:
+     enabled: yes
+     name: sensu-client
+     state: started
 
   - name: start uchiwa
     service:
-     enabled: yes
-     name: uchiwa
-     state: started
-     become: true
+      enabled: yes
+      name: uchiwa
+      state: started
