@@ -18,32 +18,25 @@
     apt:
       name: sensu
 
-  # # - name: configure sensu client
-  # #   copy:
-  # #     src: client.json
-  # #     dest: /etc/sensu/conf.d/client.json
-  # #     owner: sensu
-  # #     group: sensu
+  - name: config client.json
+    copy:
+      src: client.json
+      dest: /etc/sensu/conf.d/client.json
+      owner: sensu
+      group: sensu
 
-  # # - name: configure rabbitmq config to /etc/sensu/conf.d/
-  # #   copy:
-  # #     src: transport.json
-  # #     dest: /etc/sensu/conf.d/transport.json
-  # #     owner: sensu
-  # #     group: sensu
+  - name: config transport.json
+    copy:
+      src: transport.json
+      dest: /etc/sensu/conf.d/transport.json
+      owner: sensu
+      group: sensu
 
 
   # - name: configure rabbitmq config to /etc/sensu/conf.d/
   #   copy:
   #     src: rabbitmq.json
   #     dest: /etc/sensu/conf.d/rabbitmq.json
-  #     owner: sensu
-  #     group: sensu
-
-  # - name: configure sensu client
-  #   copy:
-  #     src: client.json
-  #     dest: /etc/sensu/conf.d/client.json
   #     owner: sensu
   #     group: sensu
 
