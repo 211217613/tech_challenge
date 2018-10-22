@@ -1,0 +1,44 @@
+---
+- hosts: sensumaster
+  become: true
+
+  tasks:
+
+  - name: config client.json
+    copy:
+      src: client.json
+      dest: /etc/sensu/conf.d/client.json
+      owner: sensu
+      group: sensu
+
+  - name: config transport.json
+    copy:
+      src: transport.json
+      dest: /etc/sensu/conf.d/transport.json
+      owner: sensu
+      group: sensu
+
+  - name: configure uchiwa dashboard
+    copy:
+      src: uchiwa.json
+      dest: /etc/sensu/uchiwa.json
+      owner: sensu
+      group: sensu
+
+  - name: start sensu
+    service:
+     enabled: yes
+     name: {{ items }}
+     state: started
+     become: true
+     with_items:
+       - sensu-server
+       - sensu-api
+       - sensu-client
+
+  - name: start uchiwa
+    service:
+     enabled: yes
+     name: uchiwa
+     state: started
+     become: true
