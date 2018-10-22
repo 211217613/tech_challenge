@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: true
+
+  roles:
+    - angstwad.docker_ubuntu
+
+  tasks:
+    - name: install pip
+      apt: name=python-pip state=present
+
+    - name: install docker python library
+      pip:
+        name: docker
+        state: present
+
+    - name: run redis docker container
+      docker_container:
+        image: redis
+        name: redis
+        state: started
+        ports: "6379:6379"
+
+    - name: run rabbitmq container
+      docker_container:
+        image: rabbitmq
+        name: rabbit
+        state: started
+        ports: "5671:5671"
