@@ -1,0 +1,19 @@
+---
+- hosts: sensumaster
+  become: true
+  tasks:
+  - name: install apt-key
+    apt_key:
+      url: https://sensu.global.ssl.fastly.net/apt/pubkey.gpg
+      state: present
+
+  - name: add repo
+    apt_repository:
+      repo: "deb     https://sensu.global.ssl.fastly.net/apt xenial main"
+      state: present
+      update_cache: yes
+
+  - name: install uchiwa
+    apt:
+      name: uchiwa
+
